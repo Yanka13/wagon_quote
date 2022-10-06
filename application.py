@@ -15,7 +15,7 @@ application = Flask(__name__)
 
 @application.route("/")
 def index():
-    return "<h1>Hello guysèè--èè!</h1>"
+    return "<h1>Hello gworld </h1>"
 
 
 @application.route("/quote")
