@@ -2,7 +2,6 @@ from flask import Flask
 
 import requests
 
-
 def breaking_quote():
     url = "https://wagon-breaking-bad-quotes.herokuapp.com/v1/quotes"
     call = requests.get(url).json()[0]
@@ -15,7 +14,7 @@ application = Flask(__name__)
 
 @application.route("/")
 def index():
-    return "<h1>Hello gworld </h1>"
+    return "<h1>Hello world </h1>"
 
 
 @application.route("/quote")
