@@ -1,15 +1,14 @@
+import requests
 from flask import Flask
 
-import requests
+application = Flask(__name__)
+
 
 def breaking_quote():
     url = "https://wagon-breaking-bad-quotes.herokuapp.com/v1/quotes"
     call = requests.get(url).json()[0]
     response = f"{call['author']} says : {call['quote']}"
     return response
-
-
-application = Flask(__name__)
 
 
 @application.route("/")
