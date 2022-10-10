@@ -46,7 +46,7 @@ jobs:
         aws_secret_key: ${{ secrets.AWS_SECRET_ACESS_KEY }}
         application_name: yaya
         environment_name: yaya-dev
-        version_label: ${{github.run_attempt}}
+        version_label: ${{github.run_number}}
         region: eu-west-3
         deployment_package: deploy.zip
 
