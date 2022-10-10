@@ -1,1 +1,53 @@
-# Implement here a Continuous Integration Workflow with Github Actions.
+name: ci/cd
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.8.6"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pipenv
+        pipenv install --dev
+    - name: Test with nose
+      run: |
+        pipenv run nosetests
+
+
+  deploy_aws_beanstalk:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v2
+
+    - name: Generate deployment package
+      run: zip -r deploy.zip . -x '*.git*'
+
+    - name: Deploy to EB
+      uses: einaregilsson/beanstalk-deploy@v20
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACESS_KEY }}
+        application_name: yaya
+        environment_name: yaya-dev
+        version_label: ${{github.run_number}}
+        region: eu-west-3
+        deployment_package: deploy.zip
+
+
