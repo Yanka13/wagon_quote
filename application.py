@@ -1,5 +1,5 @@
 import requests
-from flask import Flask
+from flask import Flask, render_template
 
 application = Flask(__name__)
 
@@ -12,9 +12,9 @@ def breaking_quote():
 
 
 @application.route("/")
-def index():
-    return "<h1>Hello world </h1>"
 
+def index():
+    return render_template('index.html')
 
 @application.route("/quote")
 def quote():
