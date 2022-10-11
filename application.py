@@ -1,5 +1,5 @@
 import requests
-from flask import Flask
+from flask import Flask, jsonify
 
 application = Flask(__name__)
 
@@ -19,7 +19,7 @@ def index():
 @application.route("/quote")
 def quote():
   random_quote = breaking_quote()
-  return { "quote": random_quote }
+  return jsonify({ "quote": random_quote })
 
 
 if __name__ == "__main__":
