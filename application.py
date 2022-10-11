@@ -1,5 +1,5 @@
 import requests
-from flask import Flask, render_template
+from flask import Flask
 
 application = Flask(__name__)
 
@@ -14,12 +14,12 @@ def breaking_quote():
 @application.route("/")
 
 def index():
-    return render_template('index.html')
+    return "<h1> Welcome to the home page </h1>"
 
 @application.route("/quote")
 def quote():
   random_quote = breaking_quote()
-  return {"quote": random_quote}
+  return { "quote": random_quote }
 
 
 if __name__ == "__main__":
